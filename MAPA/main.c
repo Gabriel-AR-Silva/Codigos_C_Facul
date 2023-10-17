@@ -58,7 +58,7 @@ int Menu() {
         scanf("%d", &MenuAction);
         
         // 1 - Verifica se o valor recebido é de acordo com as ações do menu
-        // 2 - Limpa o buffer de entrada em caso de entrada inválida
+        // 2 - Limpa o buffer de entrada caso o valor de entrada seja inválido
         MenuVerify = (MenuAction >= 1 && MenuAction <= 4) ? true : (getchar(), false);
     } while (!MenuVerify);
 
