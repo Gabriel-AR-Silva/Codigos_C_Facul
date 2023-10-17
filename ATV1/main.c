@@ -18,14 +18,14 @@ int main() {
 
 	printf("\n\n");
 
-	float valorInicialRendimento = valorInvestido;
+	float valorInicialInvestimento = valorInvestido;
 
 	for (int i = 1; i <= periodo; i++) {
 		valorInvestido *= 1 + percentualRendimento;
 		printf("Depois do mˆs %d ter  = %.3f \n", i, valorInvestido);
 	}
 
-	float saldoParaRetirada = valorInicialRendimento + (( valorInvestido - valorInicialRendimento ) * 0.85);
+	float saldoParaRetirada = valorInicialInvestimento + (( valorInvestido - valorInicialInvestimento ) * 0.85);
 
 	printf("\n\nValor do saldo final = %.3f \n", valorInvestido);
 	printf("Valor do saldo para retirada ap¢s imposto sobre rendimento = %.2f \n\n", saldoParaRetirada);
