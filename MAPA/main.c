@@ -1,7 +1,3 @@
-/*
-    CPF, primeiro nÃºmero nÃ£o aparece
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
