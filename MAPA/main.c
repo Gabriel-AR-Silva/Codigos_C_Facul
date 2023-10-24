@@ -39,12 +39,10 @@ int main() {
             printf("\n\n**** Opção - Registrar Atendimento ****\n\n");
 
             printf("Digite seu Nome: ");
-            getchar(); 
-            fgets(agendados[quantidadeAtendimento].nome, sizeof(agendados[quantidadeAtendimento].nome), stdin);
+            scanf(" %104[^\n]", agendados[quantidadeAtendimento].nome);
 
             printf("Digite seu CPF: ");
-            getchar(); 
-            fgets(agendados[quantidadeAtendimento].CPF, sizeof(agendados[quantidadeAtendimento].CPF), stdin);
+            scanf(" %19[^\n]", agendados[quantidadeAtendimento].CPF);
             
             printf("\n");
 
@@ -106,37 +104,44 @@ int menu(char *tipoMenu, char *tituloMenuAtendimento) {
 }
 
 void list(int quantidadeAtendimento, Objeto *agendados, bool porSetor) {
-    int actionMenuSectorChosen = 0;
-    
-    if (quantidadeAtendimento > 0) {
-    	if (porSetor) {
-    		printf("\n\n**** Opção - Listar Atendimento por Setor ****\n");
-    		actionMenuSectorChosen = menu("setorAtendimento", "Escolha qual setor entre as opções abaixo você deseja listar :)");
-		} else {
-			printf("\n\n**** Opção - Listar Atendimentos Registrados ****\n");
-		}
-		
-    	for (int i=0; i<quantidadeAtendimento; i++) {
-	        if (porSetor) {
-	            if (agendados[i].tipoAtendimento == actionMenuSectorChosen) {
-	                render(agendados, i);
-	            } else {
-	            	printf("\n\n ****** Ainda não há atedimentos registrados para esse setor :( ******\n\n");
-				}
-	        } else {
-	            render(agendados, i);
-	        }
-    	}
-	} else {
-		printf("\n\n ****** Ainda não há atedimentos registrados :( ******\n\n");
-	}
+	int actionMenuSectorChosen = 0;
+	
+    if (quantidadeAtendimento <= 0) {
+        printf("\n\n ****** Ainda não há atendimentos registrados :( ******\n\n");
+        system("pause");
+        return;
+    }
+
+    if (porSetor) {
+        printf("\n\n**** Opção - Listar Atendimento por Setor ****\n");
+        actionMenuSectorChosen = menu("setorAtendimento", "Escolha qual setor entre as opções abaixo você deseja listar :)");
+        bool existeRegistro = false;
+
+        for (int i = 0; i < quantidadeAtendimento; i++) {
+            if (agendados[i].tipoAtendimento == actionMenuSectorChosen) {
+                render(agendados, i);
+                existeRegistro = true;
+            }
+        }
+
+        if (!existeRegistro) {
+            printf("\n\n ****** Ainda não há atendimentos registrados para esse setor :( ******\n\n");
+        }
+    } else {
+        printf("\n\n**** Opção - Listar Atendimentos Registrados ****\n");
+
+        for (int i = 0; i < quantidadeAtendimento; i++) {
+            render(agendados, i);
+        }
+    }
 
     system("pause");
 }
 
+
 void render(Objeto *agendados, int posicao) {
     printf("\n\nNome: %s", agendados[posicao].nome);
-    printf("CPF: %s", agendados[posicao].CPF);
+    printf("\nCPF: %s\n", agendados[posicao].CPF);
 
     switch (agendados[posicao].tipoAtendimento) {
         case 1:
@@ -156,4 +161,5 @@ void render(Objeto *agendados, int posicao) {
     }
 
     printf("================================= \n\n");
+    return;
 }
